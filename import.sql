@@ -1,5 +1,3 @@
--- import.sql
-
 -- 1. Criar tabela temporária com todas as colunas do CSV
 CREATE TABLE "meteorites_temp" (
     "name" TEXT,
@@ -13,7 +11,7 @@ CREATE TABLE "meteorites_temp" (
     "long" REAL
 );
 
--- 2. Importar o CSV
+-- 2. 
 .import --csv --skip 1 meteorites.csv meteorites_temp
 
 -- 3. Converter valores vazios para NULL
@@ -22,15 +20,15 @@ UPDATE "meteorites_temp" SET "year" = NULL WHERE "year" = '';
 UPDATE "meteorites_temp" SET "lat" = NULL WHERE "lat" = '';
 UPDATE "meteorites_temp" SET "long" = NULL WHERE "long" = '';
 
--- 4. Arredondar valores decimais para 2 casas
+-- 4.
 UPDATE "meteorites_temp" SET "mass" = ROUND("mass", 2);
 UPDATE "meteorites_temp" SET "lat" = ROUND("lat", 2);
 UPDATE "meteorites_temp" SET "long" = ROUND("long", 2);
 
--- 5. Remover meteoritos do tipo "Relict"
+-- 5. 
 DELETE FROM "meteorites_temp" WHERE "nametype" = 'Relict';
 
--- 6. Criar tabela final
+-- 6. 
 CREATE TABLE "meteorites" (
     "id" INTEGER,
     "name" TEXT,
@@ -43,7 +41,7 @@ CREATE TABLE "meteorites" (
     PRIMARY KEY("id")
 );
 
--- 7. Inserir dados limpos ordenados, IDs serão gerados automaticamente
+-- 7. 
 INSERT INTO "meteorites" ("name", "class", "mass", "discovery", "year", "lat", "long")
 SELECT "name", "class", "mass", "discovery", "year", "lat", "long"
 FROM "meteorites_temp"
