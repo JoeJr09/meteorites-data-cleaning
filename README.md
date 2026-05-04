@@ -22,3 +22,4 @@ EOF
 git add README.md
 git commit -m "Add README"
 git push
+CSV de meteorito recuperado do Portal de Dados Abertos da NASA, data.nasa.gov/dataset/meteorite-landings.
